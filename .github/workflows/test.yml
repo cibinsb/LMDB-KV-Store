@@ -1,28 +1,17 @@
-name: LMDB-KV_Store Test
-
+name: CI
 on:
   push:
-    branches:
-      - main
-      - dev
+    branches: [ "main" , "dev"]
   pull_request:
-    branches:
-      - main
-      - dev
-
+    branches: [ "main" ]
+env:
+  CARGO_TERM_COLOR: always
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - name: Set up Rust
-      uses: actions/setup-rust@v1
-
-    - name: Check out code
-      uses: actions/checkout@v2
-
-    - name: Build and Test
-      run: |
-        cargo build --verbose
-#        cargo test --verbose
+    - uses: actions/checkout@v3
+    - name: Build
+      run: cargo build --verbose
+#    - name: Run tests
+#      run: cargo test --verbose
