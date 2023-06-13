@@ -1,0 +1,28 @@
+name: LMDB-KV_Store Test
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up Rust
+      uses: actions/setup-rust@v1
+
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Build and Test
+      run: |
+        cargo build --verbose
+#        cargo test --verbose

@@ -1,11 +1,4 @@
 //! LMDB key/value store showing features of axum.
-//!
-//! Run with:
-//!
-//! ```not_rust
-//! cargo run -p LMDB_log_store
-//! ```
-//!
 
 mod datastore;
 mod handlers;
@@ -13,45 +6,27 @@ mod helper;
 
 use datastore::LMDBStore;
 use handlers::*;
-use helper::generate;
+use helper::{generate,handle_error};
 
 use axum::{
     error_handling::HandleErrorLayer,
     extract::DefaultBodyLimit,
     handler::Handler,
-    http::StatusCode,
-    response::IntoResponse,
     routing::{get, post_service},
     Router,
 };
 use std::{
-    borrow::Cow,
     sync::{Arc, RwLock},
     time::Duration,
 };
-use tower::{BoxError, ServiceBuilder};
+use tower::ServiceBuilder;
 use tower_http::{
     compression::CompressionLayer, limit::RequestBodyLimitLayer, trace::TraceLayer,
 };
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 type SharedState = Arc<RwLock<LMDBStore>>;
 
-async fn handle_error(error: BoxError) -> impl IntoResponse {
-    if error.is::<tower::timeout::error::Elapsed>() {
-        return (StatusCode::REQUEST_TIMEOUT, Cow::from("request timed out"));
-    }
 
-    if error.is::<tower::load_shed::error::Overloaded>() {
-        return (
-            StatusCode::SERVICE_UNAVAILABLE,
-            Cow::from("service is overloaded, try again later"),
-        );
-    }
-    (
-        StatusCode::INTERNAL_SERVER_ERROR,
-        Cow::from(format!("Unhandled internal error: {}", error)),
-    )
-}
 
 
 #[tokio::main]
