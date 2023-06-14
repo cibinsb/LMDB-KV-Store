@@ -61,6 +61,8 @@ docker run -p 8000:8000 cibinsb/lmdb-kv-store:latest
 | Status Code | 200 OK                                                    |
 | Body        | A list of all the keys in the key/value store.            |
 
+### Admin Endpoint Details
+
 
 | HTTP Method | Endpoint          | Description                               |
 |-------------|-------------------|-------------------------------------------|
@@ -68,26 +70,26 @@ docker run -p 8000:8000 cibinsb/lmdb-kv-store:latest
 | DELETE      | /admin/keys       | Delete all keys                            |
 | DELETE      | /admin/key/:key   | Delete a specific key                      |
 
-### Endpoint Details
+
 
 #### Retrieve the count of all keys
 
 - HTTP Method: GET
-- Endpoint: /keys/count
+- Endpoint: /admin/keys/count
 - Description: Retrieves the count of all keys.
-- Authentication: Requires bearer authentication with the "secret-token" header.
+- Authentication: Requires bearer authentication with the `secret-token` header.
 
 #### Delete all keys
 
 - HTTP Method: DELETE
-- Endpoint: /keys
+- Endpoint: /admin/keys
 - Description: Deletes all keys.
-- Authentication: Requires bearer authentication with the "secret-token" header.
+- Authentication: Requires bearer authentication with the `secret-token` header.
 
 #### Delete a specific key
 
 - HTTP Method: DELETE
-- Endpoint: /key/:key
+- Endpoint: /admin/key/:key
 - Description: Deletes a specific key identified by the provided `:key` parameter.
 - Path Parameters:
   - `:key`: The key to be deleted.
