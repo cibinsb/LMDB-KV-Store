@@ -14,7 +14,7 @@ To install and run the LMDB-KV-Store, follow these steps:
 ```
 docker build -t lmdb-kv-store .
 
-docker run -d -V data:/LMDB-KV-Store/data -p 8000:8000 lmdb-kv-store 
+docker run -d -v data:/LMDB-KV-Store/data -p 8000:8000 lmdb-kv-store 
 ```
 
 # API Doc
