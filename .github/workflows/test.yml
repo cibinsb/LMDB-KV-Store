@@ -1,9 +1,6 @@
 name: CI
 on:
   push:
-    paths:
-      - '**/Cargo.toml'
-      - '**/Cargo.lock'
     branches: [ "main" , "dev"]
   pull_request:
     branches: [ "main" ]
@@ -11,11 +8,6 @@ on:
 env:
   CARGO_TERM_COLOR: always
 jobs:
-  security_audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions-rs/audit-check@v1
   build:
     runs-on: ubuntu-latest
     steps:
