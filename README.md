@@ -1,5 +1,5 @@
 # LMDB-KV-Store
-Key-Value Store Implemented with LMDB
+Key-Value Store Implemented with LMDB.
 The LMDB Key-Value store is a web service constructed using Axum, 
 offering the capability to store values with automatically generated keys.
 
