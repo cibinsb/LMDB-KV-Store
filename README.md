@@ -5,9 +5,7 @@ offering the capability to store values with automatically generated keys.
 
 This REST API provides endpoints to interact with a key/value store using LMDB. 
 It allows setting values for keys, retrieving values for keys, retrieving all keys,
-and performing other administrative operations. The API is built using the Axum framework
-in Rust and includes various middleware for error handling, request body limits, compression,
-load shedding, timeout, and tracing.
+and performing other administrative operations.
 
 # Install
 To install and run the LMDB-KV-Store, follow these steps:
@@ -15,6 +13,11 @@ To install and run the LMDB-KV-Store, follow these steps:
 docker build -t lmdb-kv-store .
 
 docker run -d -v data:/LMDB-KV-Store/data -p 8000:8000 lmdb-kv-store 
+```
+or 
+
+```
+docker run -p 8000:8000 cibinsb/lmdb-kv-store:latest
 ```
 
 # API Doc
