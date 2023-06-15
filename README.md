@@ -25,11 +25,11 @@ docker run -p 8000:8000 cibinsb/lmdb-kv-store:latest
 | Route       | POST /value                                                            |
 |-------------|------------------------------------------------------------------------|
 | Description | Endpoint to set a value in the key/value(key is auto generated) store. |
-| Request  Method  |     POST                                                                   |                                                              |
+| Request  Method  | POST                                                                   |                                                              |
 | Path        | /value                                                                 |
 | Response    |                                                                        |
 | Status Code | 200 OK                                                                 |
-| Body        | None                                                                   |
+| Body        | The value to be saved.                                                 |
 
 | Route       | GET /{key}  |
 |-------------|-------------|

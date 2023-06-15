@@ -1,9 +1,7 @@
-name: CI
+name: CI-dev
 on:
   push:
-    branches: [ "main" , "dev"]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "dev"]
 
 env:
   CARGO_TERM_COLOR: always
@@ -70,4 +68,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/lmdb-kv-store:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/lmdb-kv-store:dev
