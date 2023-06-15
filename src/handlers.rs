@@ -34,7 +34,7 @@ pub async fn kv_set_no_key(State(state): State<SharedState>, bytes: Bytes) {
     let datastore = &state.write().unwrap();
     let mut wtxn = datastore.env.write_txn().unwrap();
     let nextflow_log = Nextflow {
-        log: (&payload_str).parse().unwrap(),
+        log: (payload_str).parse().unwrap(),
     };
     datastore
         .db
@@ -57,7 +57,7 @@ pub async fn kv_set(Path(key): Path<String>, State(state): State<SharedState>, b
 pub async fn list_keys(State(state): State<SharedState>) -> Json<Value> {
     let datastore = &state.read().unwrap();
     let rtxn = datastore.env.read_txn().unwrap();
-    let mut result: Box<HashMap<String, String>> = Box::new(HashMap::new());  // Store result on the heap
+    let mut result: Box<HashMap<String, String>> = Box::default();  // Store result on the heap
     let mut iter = datastore.db.iter(&rtxn).unwrap();
     while let Some(Ok((key, value))) = iter.next() {
         result.insert(key.to_string(), value.log);
