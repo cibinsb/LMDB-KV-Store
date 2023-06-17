@@ -1,4 +1,6 @@
 # LMDB-KV-Store
+![CI/CD](https://github.com/cibinsb/LMDB-KV-Store/actions/workflows/main.yml/badge.svg)
+
 Key-Value Store Implemented with LMDB.
 The LMDB Key-Value store is a web service constructed using Axum, 
 offering the capability to store values with automatically generated keys.
@@ -12,12 +14,12 @@ To install and run the LMDB-KV-Store, follow these steps:
 ```
 docker build -t lmdb-kv-store .
 
-docker run -d -v data:/LMDB-KV-Store/data -p 8000:8000 lmdb-kv-store 
+docker run -d -v data:/LMDB-KV-Store/data --env-file=.env.docker -p 8000:8000 lmdb-kv-store 
 ```
 or 
 
 ```
-docker run -p 8000:8000 cibinsb/lmdb-kv-store:latest
+docker run --env-file=.env.docker -p 8000:8000 cibinsb/lmdb-kv-store:latest
 ```
 
 # API Doc
