@@ -11,7 +11,7 @@ and performing other administrative operations.
 
 # Live Demo
 
-https://lmdb-kv-store.shuttleapp.rs
+https://lmdb-kv-store.shuttleapp.rs/keys
 
 # Install
 To install and run the LMDB-KV-Store, follow these steps:
@@ -107,9 +107,8 @@ Make sure to replace "secret-token" with the actual authentication token when ma
 
 # Test
 
-TODO
 ```
-export DATABASE_NAME=prod.mdb
+export DATABASE_NAME=test.mdb
 export SECRET_TOKEN=secret-token
 cargo test
 
