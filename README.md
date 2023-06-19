@@ -9,6 +9,10 @@ This REST API provides endpoints to interact with a key/value store using LMDB.
 It allows setting values for keys, retrieving values for keys, retrieving all keys,
 and performing other administrative operations.
 
+# Live Demo
+
+https://lmdb-kv-store.shuttleapp.rs
+
 # Install
 To install and run the LMDB-KV-Store, follow these steps:
 ```
@@ -104,3 +108,9 @@ Make sure to replace "secret-token" with the actual authentication token when ma
 # Test
 
 TODO
+```
+export DATABASE_NAME=prod.mdb
+export SECRET_TOKEN=secret-token
+cargo test
+
+```
