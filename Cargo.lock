@@ -1041,6 +1041,7 @@ dependencies = [
  "heed",
  "http",
  "hyper",
+ "lazy_static",
  "rand",
  "serde",
  "serde_json",

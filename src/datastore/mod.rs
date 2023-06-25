@@ -4,6 +4,7 @@ use heed::{Database, Env, EnvOpenOptions};
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::Path;
+use crate::search::PreProcessingPipeline;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct KV {
@@ -19,6 +20,7 @@ pub struct LMDBStore {
     pub env: Env,
     pub db: Database<Str, SerdeBincode<KV>>,
     pub inverted_index: Database<Str, SerdeBincode<Docs>>,
+    pub preprocessor_pipeline: PreProcessingPipeline,
 }
 
 impl Default for LMDBStore {
@@ -30,9 +32,8 @@ impl Default for LMDBStore {
             .max_dbs(2)
             .open(Path::new("data").join(data_base_name))
             .unwrap();
-        // we will open the default unnamed database
         let db: Database<Str, SerdeBincode<KV>> = env.create_database(Some("KV")).unwrap();
         let inverted_index: Database<Str, SerdeBincode<Docs>> = env.create_database(Some("Search")).unwrap();
-        Self { env, db, inverted_index }
+        Self { env, db, inverted_index, preprocessor_pipeline: PreProcessingPipeline::new() }
     }
 }
