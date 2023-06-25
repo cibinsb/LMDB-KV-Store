@@ -51,6 +51,7 @@ pub fn app() -> Router {
                 ),
         )
         .route("/keys", get(list_keys))
+        .route("/search", get(kv_search))
         // Nest our admin routes under `/admin`
         .nest("/admin", admin_routes())
         // Add middleware to all routes

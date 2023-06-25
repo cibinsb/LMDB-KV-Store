@@ -4,17 +4,26 @@ use std::collections::HashMap;
 use crate::datastore::KV;
 use crate::router::SharedState;
 use crate::helper::generate;
+use crate::search::{index,search,Params};
 use serde_json::json;
 use tower_http::validate_request::ValidateRequestHeaderLayer;
 
 use axum::{
     body::Bytes,
-    extract::{Path, State, Json},
+    extract::{Path, State, Json, Query},
     http::StatusCode,
     routing::{get, delete},
     response::{IntoResponse},
     Router,
 };
+
+pub async fn kv_search(
+    Query(params): Query<Params>,
+    State(state): State<SharedState>,
+) -> impl IntoResponse {
+    let datastore = &state.read().unwrap();
+    Json(json!({"data": search(params.query, datastore)}))
+}
 
 pub async fn kv_get(
     Path(key): Path<String>,
@@ -22,8 +31,8 @@ pub async fn kv_get(
 ) -> Result<String, StatusCode> {
     let datastore = &state.read().unwrap();
     let rtxn = datastore.env.read_txn().unwrap();
-    if let Some(value) = datastore.db.get(&rtxn, &key).unwrap() {
-        Ok(value.log)
+    if let Some(kv) = datastore.db.get(&rtxn, &key).unwrap() {
+        Ok(kv.log)
     } else {
         Err(StatusCode::NOT_FOUND)
     }
@@ -36,11 +45,13 @@ pub async fn kv_set_no_key(State(state): State<SharedState>, bytes: Bytes) {
     let kv_log = KV {
         log: (payload_str).parse().unwrap(),
     };
+    let key = generate();
     datastore
         .db
-        .put(&mut wtxn, &generate(), &kv_log)
+        .put(&mut wtxn, &key, &kv_log)
         .unwrap();
     wtxn.commit().unwrap();
+    index(kv_log, datastore, key);
 }
 
 pub async fn kv_set(Path(key): Path<String>, State(state): State<SharedState>, bytes: Bytes) {
@@ -52,6 +63,7 @@ pub async fn kv_set(Path(key): Path<String>, State(state): State<SharedState>, b
     };
     datastore.db.put(&mut wtxn, &key, &kv_log).unwrap();
     wtxn.commit().unwrap();
+    index(kv_log, datastore, key);
 }
 
 pub async fn list_keys(State(state): State<SharedState>) -> impl IntoResponse {

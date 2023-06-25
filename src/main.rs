@@ -4,6 +4,7 @@ mod datastore;
 mod handlers;
 mod helper;
 mod router;
+mod search;
 
 use router::app;
 use tracing_subscriber::{
