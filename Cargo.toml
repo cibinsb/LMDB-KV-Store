@@ -12,7 +12,7 @@ heed = "0.11.0"
 rand = "0.8"
 base64 = "0.13"
 serde = "1.0.164"
-serde_json = "1.0.97"
+serde_json = "1.0.99"
 tokio = { version = "1.0", features = ["full"] }
 tower = { version = "0.4", features = ["util", "timeout", "load-shed", "limit"] }
 tower-http = { version = "0.4.0", features = [
