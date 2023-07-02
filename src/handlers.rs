@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use crate::datastore::KV;
 use crate::router::SharedState;
 use crate::helper::generate;
-use crate::search::{index,search,Params};
+use crate::search::{index,value_search,Params};
 use serde_json::json;
 use tower_http::validate_request::ValidateRequestHeaderLayer;
 
@@ -17,12 +17,12 @@ use axum::{
     Router,
 };
 
-pub async fn kv_search(
+pub async fn search(
     Query(params): Query<Params>,
     State(state): State<SharedState>,
 ) -> impl IntoResponse {
     let datastore = &state.read().unwrap();
-    Json(json!({"data": search(params.query, datastore)}))
+    Json(json!({"data": value_search(params.query, datastore)}))
 }
 
 pub async fn kv_get(
@@ -86,6 +86,13 @@ pub fn admin_routes() -> Router<SharedState> {
         wtxn.commit().unwrap();
     }
 
+    async fn clear_index(State(state): State<SharedState>) {
+        let datastore = &state.write().unwrap();
+        let mut wtxn = datastore.env.write_txn().unwrap();
+        datastore.inverted_index.clear(&mut wtxn).unwrap();
+        wtxn.commit().unwrap();
+    }
+
     async fn remove_key(Path(key): Path<String>, State(state): State<SharedState>) {
         let datastore = &state.write().unwrap();
         let mut wtxn = datastore.env.write_txn().unwrap();
@@ -101,6 +108,7 @@ pub fn admin_routes() -> Router<SharedState> {
     Router::new()
         .route("/keys/count", get(count_keys))
         .route("/keys", delete(delete_all_keys))
+        .route("/index/clear", delete(clear_index))
         .route("/key/:key", delete(remove_key))
         // Require bearer auth for all admin routes
         .layer(ValidateRequestHeaderLayer::bearer(&secret_token))

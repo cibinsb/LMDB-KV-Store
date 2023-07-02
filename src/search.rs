@@ -67,7 +67,7 @@ pub fn index(
     wtxn.commit().unwrap();
 }
 
-pub fn search(query: String, datastore: &RwLockReadGuard<LMDBStore>) -> HashMap<String, String> {
+pub fn value_search(query: String, datastore: &RwLockReadGuard<LMDBStore>) -> HashMap<String, String> {
     let rtxn = datastore.env.read_txn().unwrap();
     let keys = match datastore.inverted_index.get(&rtxn, &query).unwrap() {
             Some(docs) => docs.keys,
