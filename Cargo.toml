@@ -28,5 +28,5 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 [dev-dependencies]
 hyper = "0.14.26"
-axum-test = "9.1.1"
+axum-test = "10.1.0"
 http = "0.2.9"
