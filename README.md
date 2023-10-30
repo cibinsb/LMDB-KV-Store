@@ -32,10 +32,9 @@ docker run --env-file=.env.docker -p 8000:8000 cibinsb/lmdb-kv-store:latest
 |-------------|------------------------------------------------------------------------|
 | Description | Endpoint to set a value in the key/value(key is auto generated) store. |
 | Request  Method  | POST                                                                   |                                                              |
+| Request Body        | The value to be saved.                                                 |
 | Path        | /value                                                                 |
-| Response    |                                                                        |
-| Status Code | 200 OK                                                                 |
-| Body        | The value to be saved.                                                 |
+| Response Status Code | 200 OK                                                                 |
 
 | Route       | GET /{key}  |
 |-------------|-------------|
@@ -43,9 +42,8 @@ docker run --env-file=.env.docker -p 8000:8000 cibinsb/lmdb-kv-store:latest
 | Request  Method   |      GET       |
 | Path        | /{key}      |
 | Parameters  | key (string): The key to retrieve the value for. |
-| Response    |             |
-| Status Code | 200 OK      |
-| Body        | The value associated with the given key. |
+| Request Body        | The value associated with the given key. |
+| Response Status Code | 200 OK      |
 
 | Route       | POST /{key} |
 |-------------|-------------|
@@ -53,19 +51,16 @@ docker run --env-file=.env.docker -p 8000:8000 cibinsb/lmdb-kv-store:latest
 | Request  Method   |     POST        |
 | Path        | /{key}      |
 | Parameters  | key (string): The key to set the value for. |
-| Body        | The new value to be associated with the key. |
-| Response    |             |
-| Status Code | 200 OK      |
-| Body        | None        |
+| Request Body        | The new value to be associated with the key. |
+| Response Status Code | 200 OK      |
 
 | Route       | GET /keys                                                 |
 |-------------|-----------------------------------------------------------|
 | Description | Endpoint to retrieve all the keys in the key/value store. |
 | Request   Method  | GET                                                       |
 | Path        | /keys                                                     |
-| Response    | JSON                                                      |
+| Response  body  | JSON, A list of all the keys in the key/value store.                                                       |
 | Status Code | 200 OK                                                    |
-| Body        | A list of all the keys in the key/value store.            |
 
 ### Admin Endpoint Details
 
