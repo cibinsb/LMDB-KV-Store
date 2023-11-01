@@ -113,3 +113,8 @@ export SECRET_TOKEN=secret-token
 cargo test
 
 ```
+
+# Shuttle Deployment
+```shell
+cargo shuttle deploy 
+```

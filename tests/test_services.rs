@@ -1,11 +1,14 @@
 use axum::{body::Body, http::{Request, StatusCode}, http};
 use http::header::{self, HeaderValue};
-use serde_json::{json, Value, from_slice, from_str};
+// use serde_json::{json, Value, from_slice, from_str};
 use tower::ServiceExt;
 use lmdb_kv_store::router::app; // for `oneshot` and `ready`
 use axum_test::TestServer;
 
 fn start_server() -> TestServer {
+    // Set env
+    std::env::set_var("DATABASE_NAME", "test.mdb");
+    std::env::set_var("SECRET_TOKEN", "secret-token");
     // Build an application with a route.
     let app = app()
       .into_make_service();
