@@ -4,6 +4,7 @@ use axum::{
     extract::DefaultBodyLimit,
     handler::Handler,
     routing::{get, post_service},
+    http::Method,
     Router,
 };
 use std::{
@@ -14,6 +15,7 @@ use tower::ServiceBuilder;
 use tower_http::compression::CompressionLayer;
 use tower_http::limit::RequestBodyLimitLayer;
 use tower_http::trace::TraceLayer;
+use tower_http::cors::{Any, CorsLayer};
 use crate::datastore::LMDBStore;
 use crate::handlers::*;
 use crate::helper::handle_error;
@@ -63,6 +65,10 @@ pub fn app() -> Router {
                 .concurrency_limit(2048)
                 .timeout(Duration::from_secs(10))
                 .layer(TraceLayer::new_for_http()),
+        )
+        .layer(CorsLayer::new()
+                .allow_origin(Any)
+                .allow_methods([Method::GET, Method::POST, Method::PATCH, Method::DELETE, Method::PUT, Method::OPTIONS]),
         )
         .with_state(Arc::clone(&shared_state));
     app
