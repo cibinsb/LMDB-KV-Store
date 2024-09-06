@@ -28,53 +28,48 @@ docker run --env-file=.env.docker -p 8000:8000 cibinsb/lmdb-kv-store:latest
 
 # API Doc
 
-| Route       | POST /value                                                            |
-|-------------|------------------------------------------------------------------------|
-| Description | Endpoint to set a value in the key/value(key is auto generated) store. |
-| Request  Method  | POST                                                                   |                                                              |
-| Path        | /value                                                                 |
-| Response    |                                                                        |
-| Status Code | 200 OK                                                                 |
-| Body        | The value to be saved.                                                 |
+| Route                | POST /value                                                            |
+|----------------------|------------------------------------------------------------------------|
+| Description          | Endpoint to set a value in the key/value(key is auto generated) store. |
+| Request  Method      | POST                                                                   |                                                              |
+| Path                 | /value                                                                 |
+| Response Status Code | 200 OK                                                                 |
+| Body                 | The value to be saved.                                                 |
 
-| Route       | GET /{key}  |
-|-------------|-------------|
-| Description | Endpoint to get the value for a given key from the key/value store. |
-| Request  Method   |      GET       |
-| Path        | /{key}      |
-| Parameters  | key (string): The key to retrieve the value for. |
-| Response    |             |
-| Status Code | 200 OK      |
-| Body        | The value associated with the given key. |
+| Route                | GET /{key}                                                          |
+|----------------------|---------------------------------------------------------------------|
+| Description          | Endpoint to get the value for a given key from the key/value store. |
+| Request  Method      | GET                                                                 |
+| Path                 | /{key}                                                              |
+| Parameters           | key (string): The key to retrieve the value for.                    |
+| Response Status Code | 200 OK                                                              |
+| Response Body        | The value associated with the given key.                            |
 
-| Route       | POST /{key} |
-|-------------|-------------|
-| Description | Endpoint to set a value for a given key in the key/value store. |
-| Request  Method   |     POST        |
-| Path        | /{key}      |
-| Parameters  | key (string): The key to set the value for. |
-| Body        | The new value to be associated with the key. |
-| Response    |             |
-| Status Code | 200 OK      |
-| Body        | None        |
+| Route                | POST /{key}                                                     |
+|----------------------|-----------------------------------------------------------------|
+| Description          | Endpoint to set a value for a given key in the key/value store. |
+| Request  Method      | POST                                                            |
+| Path                 | /{key}                                                          |
+| Parameters           | key (string): The key to set the value for.                     |
+| Request Body         | The new value to be associated with the key.                    |
+| Response Status Code | 200 OK                                                          |
 
-| Route       | GET /keys                                                 |
-|-------------|-----------------------------------------------------------|
-| Description | Endpoint to retrieve all the keys in the key/value store. |
-| Request   Method  | GET                                                       |
-| Path        | /keys                                                     |
-| Response    | JSON                                                      |
-| Status Code | 200 OK                                                    |
-| Body        | A list of all the keys in the key/value store.            |
+| Route                | GET /keys                                                 |
+|----------------------|-----------------------------------------------------------|
+| Description          | Endpoint to retrieve all the keys in the key/value store. |
+| Request   Method     | GET                                                       |
+| Path                 | /keys                                                     |
+| Response Status Code | 200 OK                                                    |
+| Response Body        | A list of all the keys in the key/value store.            |
 
 ### Admin Endpoint Details
 
 
-| HTTP Method | Endpoint          | Description                               |
-|-------------|-------------------|-------------------------------------------|
-| GET         | /admin/keys/count | Retrieve the count of all keys             |
-| DELETE      | /admin/keys       | Delete all keys                            |
-| DELETE      | /admin/key/:key   | Delete a specific key                      |
+| HTTP Method | Endpoint          | Description                    |
+|-------------|-------------------|--------------------------------|
+| GET         | /admin/keys/count | Retrieve the count of all keys |
+| DELETE      | /admin/keys       | Delete all keys                |
+| DELETE      | /admin/key/:key   | Delete a specific key          |
 
 
 

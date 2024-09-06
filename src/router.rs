@@ -24,6 +24,7 @@ pub fn app() -> Router {
     let shared_state = SharedState::default();
     // Build our application by composing routes
     let app: Router = Router::new()
+        .route("/", get(welcome))
         .route(
             "/value",
             // But don't compress `kv_set`

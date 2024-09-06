@@ -1,5 +1,5 @@
 # Use the official Rust base image
-FROM rust:1.67.1-slim
+FROM rust:1.80-slim
 
 # Set the working directory inside the container
 WORKDIR /LMDB-KV-Store

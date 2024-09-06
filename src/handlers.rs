@@ -17,6 +17,10 @@ use axum::{
     Router,
 };
 
+pub async  fn welcome() -> & 'static str {
+    "LMDB service is ready"
+}
+
 pub async fn kv_search(
     Query(params): Query<Params>,
     State(state): State<SharedState>,
