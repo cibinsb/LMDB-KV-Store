@@ -27,6 +27,6 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 [dev-dependencies]
-hyper = "0.14.26"
+hyper = "0.14.27"
 axum-test = "9.1.1"
 http = "0.2.9"
